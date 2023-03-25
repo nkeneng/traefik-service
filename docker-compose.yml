@@ -12,7 +12,7 @@ services:
       - "--entrypoints.http.address=:80"
       - "--entrypoints.https.address=:443"
     ports:
-      - "90:80"
+      - "80:80"
       - "443:443"
       - "9090:8080"
     volumes:
