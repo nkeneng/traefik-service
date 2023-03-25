@@ -1,0 +1,27 @@
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v2.9
+    restart: always
+    command:
+      # Experimentell, um das Dashboard ohne Zugriffsschutz aufzurufen
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.network=traefik_web"
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
+    ports:
+      - "90:80"
+      - "443:443"
+      - "9090:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./letsencrypt:/letsencrypt
+      #- ./traefik.yml:/etc/traefik/traefik.yml
+    networks:
+      - traefik_web
+
+networks:
+  traefik_web:
+    external: true
