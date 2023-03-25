@@ -1,3 +1,9 @@
+networks:
+  my_network:
+    external:
+      name: traefik_web
+
+
 services:
   traefik:
     container_name: traefik
